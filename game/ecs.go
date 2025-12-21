@@ -6,7 +6,7 @@ import (
 )
 
 type WorldModelComponent struct {
-	_ ecs.MetaTag `ecs:"component"`
+	ecs.MetaTag `ecs:"component"`
 
 	Date string `ecs:"a, dto"`
 }
@@ -19,13 +19,13 @@ type WorldEntity struct {
 }
 
 type ScreenViewComponent struct {
-	_ ecs.MetaTag `ecs:"component"`
+	ecs.MetaTag `ecs:"component"`
 
 	background ecs.Ref[gfx.DrawEntity] `ecs:"a"` // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
 }
 
 type ScreenModelComponent struct {
-	_ ecs.MetaTag `ecs:"component"`
+	ecs.MetaTag `ecs:"component"`
 
 	worldMap ecs.Ref[WorldEntity] `ecs:"a, reference"` // reference components should not be created by default, but also not recreated as transient refs
 }

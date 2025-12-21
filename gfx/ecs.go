@@ -8,7 +8,7 @@ import (
 type DrawCallFn func(source rect2.Float32)
 
 type DrawComponent struct {
-	_ ecs.MetaTag `ecs:"component"`
+	ecs.MetaTag `ecs:"component"`
 
 	DrawCall DrawCallFn
 }
@@ -28,7 +28,7 @@ type DoubleDrawEntity struct {
 }
 
 type BoundComponent struct {
-	_ ecs.MetaTag `ecs:"component"`
+	ecs.MetaTag `ecs:"component"`
 
 	Bound rect2.Float32
 }

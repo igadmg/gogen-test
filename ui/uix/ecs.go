@@ -3,7 +3,7 @@ package uix
 import ecs "github.com/igadmg/goecs"
 
 type Component1_1_1 struct {
-	_ ecs.MetaTag `ecs:"component"`
+	ecs.MetaTag `ecs:"component"`
 
 	a int `ecs:"a"`
 	b int `ecs:"a: 'Bee'"`
