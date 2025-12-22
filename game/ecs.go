@@ -3,6 +3,7 @@ package game
 import (
 	ecs "github.com/igadmg/goecs"
 	"github.com/igadmg/gogen-test/gfx"
+	"github.com/igadmg/gogen-test/ui"
 )
 
 type WorldModelComponent struct {
@@ -12,10 +13,15 @@ type WorldModelComponent struct {
 }
 
 type WorldEntity struct {
-	_  ecs.MetaTag `ecs:"archetype"`
-	Id ecs.Id
+	ecs.MetaTag `ecs:"archetype"`
+	Id          ecs.Id
 
 	Model *WorldModelComponent
+}
+
+type ScreenLayoutComponent struct {
+	ecs.MetaTag        `ecs:"component: { transient }"`
+	ui.LayoutComponent `gog:"new"`
 }
 
 type ScreenViewComponent struct {
@@ -31,11 +37,12 @@ type ScreenModelComponent struct {
 }
 
 type ScreenEntity struct {
-	_  ecs.MetaTag `ecs:"archetype"`
-	Id ecs.Id
+	ecs.MetaTag `ecs:"archetype"`
+	Id          ecs.Id
 
-	View  *ScreenViewComponent
-	Model *ScreenModelComponent
+	layout *ScreenLayoutComponent `gog:"new: '@'"`
+	View   *ScreenViewComponent   `gog:"new: { background: '@.DrawBackground' }"`
+	Model  *ScreenModelComponent
 }
 
 func (s ScreenEntity) DrawBackground() {

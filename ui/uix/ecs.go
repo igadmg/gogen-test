@@ -10,8 +10,8 @@ type Component1_1_1 struct {
 }
 
 type Archetype1_1_1 struct {
-	_  ecs.MetaTag `ecs:"archetype"`
-	Id ecs.Id
+	ecs.MetaTag `ecs:"archetype"`
+	Id          ecs.Id
 
 	Component1 Component1_1_1
 }
