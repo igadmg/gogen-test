@@ -1,6 +1,7 @@
 package game
 
 import (
+	"github.com/igadmg/gamemath/vector2"
 	ecs "github.com/igadmg/goecs"
 	"github.com/igadmg/gogen-test/gfx"
 	"github.com/igadmg/gogen-test/ui"
@@ -24,6 +25,19 @@ type PlayerEntity struct {
 	Id          ecs.Id
 }
 
+type CursorComponent struct {
+	ecs.MetaTag `ecs:"component"`
+
+	xy vector2.Int `ecs:"a, dto"`
+}
+
+type CursorEntity struct {
+	ecs.MetaTag `ecs:"archetype"`
+	Id          ecs.Id
+
+	Cursor *CursorComponent
+}
+
 type ScreenLayoutComponent struct {
 	ecs.MetaTag        `ecs:"component: { transient }"`
 	ui.LayoutComponent `gog:"new"`
@@ -38,8 +52,9 @@ type ScreenViewComponent struct {
 type ScreenModelComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
-	world  ecs.Ref[WorldEntity]  `ecs:"a, reference" gog:"new: 'world'"` // reference components should not be created by default, but also not recreated as transient refs
-	Player ecs.Ref[PlayerEntity] `ecs:"a, reference"`
+	world  ecs.Ref[WorldEntity]  `ecs:"a, reference" gog:"new"` // reference components should not be created by default, but also not recreated as transient refs
+	Player ecs.Ref[PlayerEntity] `ecs:"a, reference" gog:"new"`
+	Cursor ecs.Ref[CursorEntity] `ecs:"a, reference" gog:"new"`
 }
 
 type ScreenEntity struct {
@@ -48,7 +63,7 @@ type ScreenEntity struct {
 
 	layout *ScreenLayoutComponent `gog:"new: '@'"`
 	View   *ScreenViewComponent   `gog:"new: { background: '@.DrawBackground' }"`
-	Model  *ScreenModelComponent  `gog:"new: 'world, player'"`
+	Model  *ScreenModelComponent  `gog:"new: 'world, player, cursor'"`
 }
 
 func (s ScreenEntity) DrawBackground() {

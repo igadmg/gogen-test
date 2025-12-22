@@ -10,7 +10,7 @@ type DrawCallFn func(source rect2.Float32)
 type DrawComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
-	DrawCall DrawCallFn
+	DrawCall DrawCallFn `gog:"new"`
 }
 
 type DrawEntity struct {
@@ -30,14 +30,14 @@ type DoubleDrawEntity struct {
 type BoundComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
-	Bound rect2.Float32
+	Bound rect2.Float32 `gog:"new"`
 }
 
 type BoundDrawEntity struct {
 	ecs.MetaTag `ecs:"archetype: { transient }"`
-	DrawEntity  `gog:"new: drawCall"`
+	DrawEntity  `gog:"new"`
 
-	Bound BoundComponent `gog:"new: bound"`
+	Bound BoundComponent `gog:"new"`
 }
 
 // Here we removed base class new parameters and expect them to be imported automaticaly
