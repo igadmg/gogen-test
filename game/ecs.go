@@ -69,3 +69,29 @@ type ScreenEntity struct {
 func (s ScreenEntity) DrawBackground() {
 
 }
+
+type ComplexScreenLayoutComponent struct {
+	ecs.MetaTag        `ecs:"component: { transient }"`
+	ui.LayoutComponent `gog:"new"`
+}
+
+type ComplexScreenViewModelComponent struct {
+	ecs.MetaTag `ecs:"component"`
+
+	background ecs.Ref[gfx.DrawEntity] `ecs:"a"`                      // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
+	world      ecs.Ref[WorldEntity]    `ecs:"a, reference" gog:"new"` // reference components should not be created by default, but also not recreated as transient refs
+	Player     ecs.Ref[PlayerEntity]   `ecs:"a, reference" gog:"new"`
+	Cursor     ecs.Ref[CursorEntity]   `ecs:"a, reference" gog:"new"`
+}
+
+type ComplexScreenEntity struct {
+	ecs.MetaTag `ecs:"archetype"`
+	ecs.Archetype
+
+	layout    *ComplexScreenLayoutComponent    `gog:"new: '@'"`
+	ViewModel *ComplexScreenViewModelComponent `gog:"new: { background: '@.DrawBackground', world, player, cursor }"`
+  }
+
+func (s ComplexScreenEntity) DrawBackground() {
+
+}
