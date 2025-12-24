@@ -54,7 +54,7 @@ type ScreenModelComponent struct {
 
 	world  ecs.Ref[WorldEntity]  `ecs:"a, reference" gog:"new"` // reference components should not be created by default, but also not recreated as transient refs
 	Player ecs.Ref[PlayerEntity] `ecs:"a, reference" gog:"new"`
-	Cursor ecs.Ref[CursorEntity] `ecs:"a, reference" gog:"new"`
+	Cursor ecs.Ref[CursorEntity] `ecs:"a" gog:"new"`
 }
 
 type ScreenEntity struct {
@@ -90,7 +90,7 @@ type ComplexScreenEntity struct {
 
 	layout    *ComplexScreenLayoutComponent    `gog:"new: '@'"`
 	ViewModel *ComplexScreenViewModelComponent `gog:"new: { background: '@.DrawBackground', world, player, cursor }"`
-  }
+}
 
 func (s ComplexScreenEntity) DrawBackground() {
 
